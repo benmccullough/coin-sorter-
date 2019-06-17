@@ -1,0 +1,95 @@
+#include <LiquidCrystal_I2C.h>
+
+
+
+double  total = 0;
+int pirState1 = LOW;
+int pirState2 = LOW;
+int pirState3 = LOW;
+int pirState4 = LOW;
+int pirState5 = LOW;
+#include <Wire.h> 
+
+//I2C pins declaration
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  // put your setup code here, to run once:
+  lcd.begin();//Initializing display
+lcd.backlight();//To Power ON the back light
+  pinMode(A0, INPUT);
+  pinMode(A1, INPUT);
+  pinMode(A2, INPUT);
+  pinMode(A3, INPUT);
+//  pinMode(A, INPUT);
+  
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  long time = millis ();
+  if (analogRead(A0) < 875 && pirState1 == LOW) {
+    //    long newtime = millis() - time;
+    //    if (newtime > 7) {
+    pirState1 = HIGH;
+
+    //    }
+  } else if (analogRead(A0) > 875 && pirState1 == HIGH) {
+    total = total + 0.1;
+    Serial.println (total); pirState1 = LOW;
+  }
+//  delay (50);
+  time = millis ();
+//  if (analogRead(A2) < 650 && pirState2 == LOW) {
+//    //    long newtime = millis() - time;
+//    //    if (newtime > 7) {
+//    pirState2 = HIGH;
+//
+//    //    }
+//  } else if (analogRead(A2) > 1 && pirState2 == HIGH) {
+//    total = total + 0.05;
+//    Serial.println (total); pirState2 = LOW;
+//  }
+//  delay (50);
+  time = millis ();
+  if (analogRead(A1) < 750 && pirState3 == LOW) {
+    //    long newtime = millis() - time;
+    //    if (newtime > 7) {
+    pirState3 = HIGH;
+
+    //    }
+  } else if (analogRead(A1) > 750 && pirState3 == HIGH) {
+    total = total + 0.25;
+    Serial.println (total); pirState3 = LOW;
+  }
+//  delay (50);
+  time = millis ();
+  if (analogRead(A2) < 600 && pirState4 == LOW) {
+    //    long newtime = millis() - time;
+    //    if (newtime > 7) {
+    pirState4 = HIGH;
+
+    //    }
+  } else if (analogRead(A2) > 600 && pirState4 == HIGH) {
+    total = total + 1.0;
+    Serial.println (total); pirState4 = LOW;
+  }
+//  delay (50);
+  time = millis ();
+  if (analogRead(A3) < 500 && pirState5 == LOW) {
+    //    long newtime = millis() - time;
+    //    if (newtime > 7) {
+    pirState5 = HIGH;
+
+    //    }
+  } else if (analogRead(A3) > 500 && pirState5 == HIGH) {
+    total = total + 2.0;
+    Serial.println (total); pirState5 = LOW;
+  }
+//  delay (10);
+//lcd.setCursor(0,1);
+//lcd.print(total);
+lcd.setCursor(0,0);
+lcd.print(total);
